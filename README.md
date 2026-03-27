@@ -69,22 +69,37 @@ Use compact mode and description truncation to feed data into AI agents, MCP ser
 
 ## FAQ
 
-<!-- WRITE: 4-6 Q&A pairs relevant to this product -->
-
 **Is it legal to scrape drushim.co.il?**
 Web scraping of publicly available data is generally legal. This actor only accesses publicly visible information. Always check the target site's terms of service for your specific use case.
 
 **How does incremental mode work?**
 Each listing gets a content hash. On subsequent runs, only new or changed listings are emitted — saving time, compute, and storage.
 
+**What languages are supported for search queries?**
+Both Hebrew and English queries are supported. Location names can be entered in Hebrew or English — the actor resolves them via the Drushim autocomplete API to ensure accurate geo-coordinates.
+
+**Can I filter by remote or part-time work?**
+Yes. The `scope` filter supports full-time, part-time, remote, hybrid, and freelance options. Combine with `area` and `experience` filters for precise targeting.
+
+**How much does it cost to run?**
+Pricing is pay-per-event: $0.01 per run start + $0.002 per result. Fetching 1,000 job listings costs approximately $2.01 in compute events. Actual Apify platform costs (memory, CPU) are additional and depend on run size.
+
+**Can I use this with AI agents or MCP workflows?**
+Yes. Enable `compact: true` to receive only core fields, and set `descriptionMaxLength` to cap description length. This keeps token usage predictable when piping data into LLM pipelines or MCP servers.
+
+**Does the actor return salary information?**
+Yes, when the listing includes salary data. Fields `salaryMin`, `salaryMax`, `salaryCurrency`, and `salaryPeriod` are always present in the output — populated when drushim.co.il provides salary data for the listing, null otherwise.
+
 ---
 
 ## Known limitations
 
-<!-- WRITE: 4-6 honest limitations -->
-
-- <!-- WRITE: limitation 1 -->
-- <!-- WRITE: limitation 2 -->
+- **Hebrew content encoding** — Job titles, company names, and locations are returned in Hebrew script as published by drushim.co.il. English transliterations are not provided for fields that the site only publishes in Hebrew.
+- **Sub-category codes are undocumented** — The `subCategory` filter accepts numeric codes that vary per parent category. Valid codes must be looked up manually on drushim.co.il; there is no programmatic enumeration available.
+- **No historical data** — The actor scrapes current listings only. Jobs that have been removed from drushim.co.il are not accessible; incremental mode detects removals only if you maintain your own snapshot.
+- **Salary coverage is partial** — Not all listings include salary data. The `salaryMin`/`salaryMax` fields will be null for listings where the employer has not disclosed compensation.
+- **No applicant tracking** — The actor extracts listing data only. It does not submit applications, track application status, or interact with the apply flow beyond surfacing the `applyUrl` field.
+- **Rate sensitivity** — Very large runs (tens of thousands of results) may encounter rate limits from drushim.co.il. Use `maxResults` and `maxPages` to scope runs appropriately.
 
 ---
 
