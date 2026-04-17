@@ -2,11 +2,12 @@
 
 Extract structured data from [drushim.co.il](https://drushim.co.il) — structured job listings from drushim.co.il, Israel's leading job board. Search by keyword, location, category, experience level, and job type. Get full descriptions, salary data, company info, and geo-coordinates.
 
-**[Drushim Scraper - Israel Job Listings from drushim.co.il on Apify →](https://apify.com/blackfalcondata/drushim-scraper)**
+**[Drushim Scraper - Israel Job Listings on Apify →](https://apify.com/blackfalcondata/drushim-scraper)**
 
 ---
 
 ## Key features
+
 
 
 
@@ -19,6 +20,7 @@ Extract structured data from [drushim.co.il](https://drushim.co.il) — structur
 ---
 
 ## Use cases
+
 
 
 
@@ -99,6 +101,7 @@ Yes, when the listing includes salary data. Fields `salaryMin`, `salaryMax`, `sa
 ---
 
 ## Related products by Black Falcon Data
+
 
 
 
